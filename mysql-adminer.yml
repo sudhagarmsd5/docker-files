@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  mysql_db_container:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_db_data_container:/var/lib/mysql
+  adminer_container:
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db_container
+      ADMINER_DESIGN: pepa-linha-dark
+    ports:
+      - 8080:8080
+
+volumes:
+  mysql_db_data_container:
+
+  # commands: docker-compose -f mysql-adminer.yml up -d
+  # System : MYSQL
+  # Server: mysql_db_container
+  # Username: root
+  # Password : rootpassword
+  # http://localhost:8080/
